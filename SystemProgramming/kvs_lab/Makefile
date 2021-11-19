@@ -40,4 +40,4 @@ $(LARD):
 	$(CC) -shared -o $(LARD) $(LIBSRCS)
 
 clean:
-	rm -f $(OBJS) $(LOBJS) $(LARS) $(TARG) $(LARD) $(TARGD)
+	rm -f $(OBJS) $(LOBJS) $(LARS) $(TARG) $(OBJD) $(LARD) $(TARGD)
