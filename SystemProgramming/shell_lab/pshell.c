@@ -6,8 +6,6 @@
 #include<unistd.h>
 #include<errno.h>
 
-void eval(char*argv[]);
-int builtin_command(char**);
 pid_t Fork(void);
 void unix_error(char*);
 int exe(char* argv[]);
@@ -33,37 +31,6 @@ int exe(char* argv[]){
 	execvp(argv[1], argv+1);
 	printf("execve error: %s\n", strerror(errno));
 	exit(1);
-}
-
-void eval(char *argv[]){
-	int bg;
-	pid_t pid;
-
-	if (argv[0] == NULL)
-		return;
-	if (!builtin_command(argv)){
-		if ((pid = Fork()) == 0){
-			if (execve(argv[1], argv, __environ) < 0){
-				printf("execve error\n");
-				exit(0);
-			}
-
-			if (!bg){
-				int status;
-				if (waitpid(pid, &status, 0) < 0)
-					unix_error("waitfg: waitpid error\n");
-			}
-		}
-	}
-	return;
-}
-
-int builtin_command(char **argv){
-	if (!strcmp(argv[0], "quit"))
-		exit(0);
-	if (!strcmp(argv[0], "&"))
-		return 1;
-	return 0;
 }
 
 pid_t Fork(){
