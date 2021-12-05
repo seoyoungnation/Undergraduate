@@ -29,7 +29,7 @@ int main(int argc, char* argv[]){
 
 int exe(char* argv[]){
 	execvp(argv[1], argv+1);
-	printf("execve error: %s\n", strerror(errno));
+	unix_error("execve error:");
 	exit(1);
 }
 

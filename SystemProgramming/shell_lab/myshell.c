@@ -20,8 +20,6 @@ int main(){
 	char* opt;
 	char* argv[100];
 
-	int bg;
-
 	while(1){
 		cmdline = readline("$ ");
 
@@ -38,9 +36,6 @@ int main(){
 		}
 		argv[i] = NULL;
 
-		for (int j = 0; j < i; j++)
-			printf("%s\n", argv[j]);
-
 		pid = Fork();
 
 		if (pid == 0){
@@ -54,8 +49,7 @@ int main(){
 
 int exe(char* argv[]){
 	execvp(argv[0], argv);
-	printf("execve error: %s\n", strerror(errno));
-	exit(1);
+	unix_error("execvp error:");
 }
 
 pid_t Fork(){
